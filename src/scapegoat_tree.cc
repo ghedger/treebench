@@ -37,7 +37,7 @@ ScapegoatTree::~ScapegoatTree()
   // TODO: delete all nodes to eliminate memory leaks
 }
 
-// log32
+// Log32
 //
 // Gets the log-base 3/2 of tree
 //
@@ -78,7 +78,7 @@ hedger::Node *ScapegoatTree::Add(hedger::S_T key)
   return node;
 }
 
-// sizeOfSubtree
+// SizeOfSubtree
 //
 // Returns the number of nodes underneath a given parent node.
 //
@@ -92,7 +92,7 @@ int ScapegoatTree::SizeOfSubtree(hedger::Node *node)
   return SizeOfSubtree(node->left) + SizeOfSubtree(node->right) + 1;
 }
 
-// packIntoArray
+// PackIntoArray
 //
 // Put nodes into a flat array for rebuilding purposes.  We
 // recursively call ourselves traversing the tree from the reroot
@@ -111,7 +111,7 @@ int ScapegoatTree::PackIntoArray(hedger::Node *node, hedger::Node *rebuildArray[
     return PackIntoArray(node->right, rebuildArray, i);
 }
 
-// rebalance
+// Rebalance
 //
 // Flatten the tree and rebuild it from the designated root node.
 //
@@ -139,7 +139,7 @@ void ScapegoatTree::Rebalance(hedger::Node *node)
   }
 }
 
-// buildBalanced
+// BuildBalanced
 //
 // rebalance the tree from a flat array
 //
