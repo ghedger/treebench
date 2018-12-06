@@ -159,7 +159,7 @@ void TestBtree(size_t array_size)
     for (hedger::S_T i = 0; i < (hedger::S_T) array_size; i++)
     {
       hedger::Node *node = btree.Find(i);
-      printf("FIND: %08x\t", (int) (*(int *)node) );
+      printf("FIND: %p\t", node);
     }
 
     printf("\n");
