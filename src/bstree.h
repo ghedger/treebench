@@ -1,4 +1,4 @@
-// btree.h
+// bstree.h
 //
 // Implements an unbalanced binary tree.
 //
@@ -44,11 +44,11 @@ struct Node
 };
 
 
-class BTree
+class BSTree
 {
  public:
-  BTree();
-  virtual ~BTree();
+  BSTree();
+  virtual ~BSTree();
 
   Node *Add(hedger::S_T key, int *depth = NULL);
   hedger::Node *DeleteNode(hedger::Node *node, hedger::S_T key);

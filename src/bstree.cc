@@ -1,4 +1,4 @@
-// btree.h
+// bstree.h
 //
 // Implements an unbalanced binary tree.
 //
@@ -20,14 +20,14 @@
 // Copyright (C) 2018 Gregory Hedger
 //
 
-#include "btree.h"
+#include "bstree.h"
 #include "stdio.h"
 
 namespace hedger
 {
 
 // Constructor
-BTree::BTree()
+BSTree::BSTree()
 {
   root_ = nullptr;
   size_ = 0;
@@ -36,16 +36,16 @@ BTree::BTree()
 }
 
 // Destructor
-BTree::~BTree()
+BSTree::~BSTree()
 {
   // TODO: Delete all nodes
   DeleteRecursive(root_);
 }
 
 // DeleteRecursive
-// Delete the whole subtree under and including node.
+// Delete the whole substree under and including node.
 // Entry: pointer to node
-void BTree::DeleteRecursive(hedger::Node *node)
+void BSTree::DeleteRecursive(hedger::Node *node)
 {
   if (node && node->data) {
     DeleteRecursive(node->left);
@@ -64,7 +64,7 @@ void BTree::DeleteRecursive(hedger::Node *node)
 // Entry: key
 //        pointer to depth int
 // Exit:  -
-Node *BTree::Add(hedger::S_T key, int *depth)
+Node *BSTree::Add(hedger::S_T key, int *depth)
 {
   hedger::Node *node = new hedger::Node(key);
 
@@ -119,7 +119,7 @@ Node *BTree::Add(hedger::S_T key, int *depth)
 // Delete hte node associated with the given key.
 // Entry: key
 // Exit: true == success
-bool BTree::DeleteKey(hedger::S_T key)
+bool BSTree::DeleteKey(hedger::S_T key)
 {
   bool result = false;              // assume failure
   hedger::Node *node = Find(key);
@@ -137,7 +137,7 @@ bool BTree::DeleteKey(hedger::S_T key)
 // Entry: pointer to node
 //        key
 // Exit:  pointer to node
-hedger::Node *BTree::DeleteNode(hedger::Node *node, hedger::S_T key)
+hedger::Node *BSTree::DeleteNode(hedger::Node *node, hedger::S_T key)
 {
   if (node) {
     if (key < node->key) {
@@ -187,7 +187,7 @@ hedger::Node *BTree::DeleteNode(hedger::Node *node, hedger::S_T key)
 //
 // Entry: pointer righthand child of node to be deleted
 // Exit:  pointer to minimal node
-hedger::Node *BTree::FindMin(hedger::Node *node)
+hedger::Node *BSTree::FindMin(hedger::Node *node)
 {
   hedger::Node *current = node;
   while (current->left != nullptr) {
@@ -203,7 +203,7 @@ hedger::Node *BTree::FindMin(hedger::Node *node)
 //
 // Entry:
 // Exit:
-int BTree::MaxDepth()
+int BSTree::MaxDepth()
 {
   // Traverse the tree beginning from the root and keep a high-water mark of
   // maximum depth, and return it.
@@ -221,7 +221,7 @@ int BTree::MaxDepth()
 // Entry: pointer to node
 //        current depth
 //        pointer to max depth
-void BTree::MaxDepthRecurse(hedger::Node *node, int depth, int *max_depth)
+void BSTree::MaxDepthRecurse(hedger::Node *node, int depth, int *max_depth)
 {
   // Terminal leaf node?
   if (!node->left && !node->right) {
@@ -246,7 +246,7 @@ void BTree::MaxDepthRecurse(hedger::Node *node, int depth, int *max_depth)
 //
 // Entry: key
 // Exit: node
-hedger::Node *BTree::Find(hedger::S_T key)
+hedger::Node *BSTree::Find(hedger::S_T key)
 {
   hedger::Node *node = FindRecurse(key, root_);
   return node;
@@ -259,7 +259,7 @@ hedger::Node *BTree::Find(hedger::S_T key)
 // ChangeSize
 // Change the size of the tree (# of nodes)
 // Entry: size change delta
-void BTree::ChangeSize(int delta)
+void BSTree::ChangeSize(int delta)
 {
   if(size_ + delta > 0 ) {
     size_ += delta;
@@ -270,7 +270,7 @@ void BTree::ChangeSize(int delta)
 // Spit out textual representation of tree.  Called recursively.
 // Entry: pointer to top node to print
 // Exit:  -
-void BTree::Print(hedger::Node *node)
+void BSTree::Print(hedger::Node *node)
 {
   if (!node) {          // sanity check
     node = root_;
@@ -300,7 +300,7 @@ void BTree::Print(hedger::Node *node)
 // Entry: key
 //        pointer to node
 // Exit:  Node matching, or nullptr if not found / duplicate key
-hedger::Node *BTree::FindRecurse(hedger::S_T key, hedger::Node *node)
+hedger::Node *BSTree::FindRecurse(hedger::S_T key, hedger::Node *node)
 {
   if (node) {
     if (node->key == key) {

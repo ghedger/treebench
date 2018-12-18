@@ -1,6 +1,6 @@
 // scapegoat.cc
 //
-// Implements a scapegoat tree derived from BTree.
+// Implements a scapegoat tree derived from BSTree.
 //
 // This file is part of treebench.
 //
@@ -27,7 +27,7 @@
 namespace hedger
 {
 // Constructor
-ScapegoatTree::ScapegoatTree() : BTree::BTree()
+ScapegoatTree::ScapegoatTree() : BSTree::BSTree()
 {
 }
 
@@ -56,9 +56,9 @@ int const ScapegoatTree::Log32(int q)
 // Exit:  pointer to new node
 hedger::Node *ScapegoatTree::Add(hedger::S_T key)
 {
-  // Use BTree's regular unbalanced insertion
+  // Use BSTree's regular unbalanced insertion
   int depth;
-  hedger::Node *node = BTree::Add(key, &depth);
+  hedger::Node *node = BSTree::Add(key, &depth);
 
   // Is it time to rebalance?
   int q = Log32(nodeTot_);
@@ -66,7 +66,7 @@ hedger::Node *ScapegoatTree::Add(hedger::S_T key)
     // Walk up tree starting at our node.
     hedger::Node *walk = node->parent;
     if (walk) {
-      while (3 * SizeOfSubtree(walk) <= 2 * SizeOfSubtree(walk->parent)) {
+      while (3 * SizeOfSubstree(walk) <= 2 * SizeOfSubstree(walk->parent)) {
         walk = walk->parent;
       }
       if (walk->parent) {
@@ -78,18 +78,18 @@ hedger::Node *ScapegoatTree::Add(hedger::S_T key)
   return node;
 }
 
-// SizeOfSubtree
+// SizeOfSubstree
 //
 // Returns the number of nodes underneath a given parent node.
 //
 // Entry: pointer to parent node
 // Exit:  node total
-int ScapegoatTree::SizeOfSubtree(hedger::Node *node)
+int ScapegoatTree::SizeOfSubstree(hedger::Node *node)
 {
   if (!node) {
     return 0;
   }
-  return SizeOfSubtree(node->left) + SizeOfSubtree(node->right) + 1;
+  return SizeOfSubstree(node->left) + SizeOfSubstree(node->right) + 1;
 }
 
 // PackIntoArray
@@ -115,13 +115,13 @@ int ScapegoatTree::PackIntoArray(hedger::Node *node, hedger::Node *rebuildArray[
 //
 // Flatten the tree and rebuild it from the designated root node.
 //
-// Entry: root node of subtree to rebuild
+// Entry: root node of substree to rebuild
 // Exit:
 void ScapegoatTree::Rebalance(hedger::Node *node)
 {
   // Allocate temporary array for new flattened tree.
   // This array holds pointers to nodes.
-  int nodeTot = SizeOfSubtree(node);
+  int nodeTot = SizeOfSubstree(node);
   hedger::Node *parent = node->parent;
   hedger::Node **rebuildArray = new hedger::Node* [nodeTot];
   PackIntoArray(node, rebuildArray, 0);

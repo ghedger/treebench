@@ -29,7 +29,7 @@
 // Project-specific
 #include "common.h"
 #include "algo.h"
-#include "btree.h"
+#include "bstree.h"
 #include "scapegoat_tree.h"
 
 // PrintUsage
@@ -121,15 +121,15 @@ int Test(hedger::Algo *o, hedger::S_T *arr, size_t size)
   return result;
 }
 
-// TestBTree()
+// TestBSTree()
 //
-// Test a btree
+// Test a bstree
 //
 // Entry: -
 // Exit:  -
 void TestBtree(size_t array_size)
 {
-  hedger::ScapegoatTree btree;
+  hedger::ScapegoatTree bstree;
   hedger::S_T *array = AllocArray(array_size);
   if (array) {
     CreateUniqueDataSet(array, array_size);
@@ -140,25 +140,25 @@ void TestBtree(size_t array_size)
     }
 
     for (size_t i = 0; i < array_size; i++) {
-      btree.Add(array[i]);
+      bstree.Add(array[i]);
     }
 
-    btree.Print();
-    int maxDepth = btree.MaxDepth();
+    bstree.Print();
+    int maxDepth = bstree.MaxDepth();
     printf( "\nMAX DEPTH: %d\n", maxDepth);
 
     for (hedger::S_T i = 0; i < (hedger::S_T) array_size; i++)
     {
-      hedger::Node *node = btree.Find(i);
+      hedger::Node *node = bstree.Find(i);
       printf("FIND: %08x\t", (int) (*(int *)node) );
     }
 
     printf("\n");
-    btree.DeleteKey(17);
+    bstree.DeleteKey(17);
 
     for (hedger::S_T i = 0; i < (hedger::S_T) array_size; i++)
     {
-      hedger::Node *node = btree.Find(i);
+      hedger::Node *node = bstree.Find(i);
       printf("FIND: %p\t", node);
     }
 

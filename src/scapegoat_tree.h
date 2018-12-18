@@ -23,12 +23,12 @@
 #ifndef SCAPEGOAT_H_
 #define SCAPEGOAT_H_
 
-#include "btree.h"
+#include "bstree.h"
 
 namespace hedger
 {
 
-class ScapegoatTree : public hedger::BTree
+class ScapegoatTree : public hedger::BSTree
 {
   public:
     ScapegoatTree();
@@ -39,7 +39,7 @@ class ScapegoatTree : public hedger::BTree
     static int const Log32(int q);
     hedger::Node *FindScapegoat(hedger::Node *node);
     bool IsBalancedAtNode(hedger::Node *node);
-    int SizeOfSubtree(hedger::Node *node);
+    int SizeOfSubstree(hedger::Node *node);
     int PackIntoArray(hedger::Node *node, hedger::Node *rebuildArray[], int i);
     void Rebalance(hedger::Node *node);
     hedger::Node *BuildBalanced(hedger::Node **rebuildArray, int i, int nodeTot);
